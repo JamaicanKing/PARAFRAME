@@ -1,10 +1,10 @@
 
 
-<label style="color:yellow">{{ __($fieldLabel) }}</label>
+<label style="color:black">{{ __($fieldLabel) }}</label>
  
 
   
-    <p class="form-group col-md-6"><select class="form-control" type="text" style="text=align:center" id="{{ $fieldName }}"  name="{{ $fieldName }}" onchange="{{ (isset($Onchange)) }}" >
+    <div class="form-group col-md-6"><select class="form-control" type="text" style="text=align:center" id="{{ $fieldName }}"  name="{{ $fieldName }}" onchange="{{ (isset($Onchange)) }}" >
             <option id='defaultOption' value="">{{ __($defaultDropDownOption) }}</option>
             @if(isset($options))
                 @foreach ( $options as $option )
@@ -22,4 +22,4 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-</p>
+        </div>

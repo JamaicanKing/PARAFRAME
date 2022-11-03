@@ -84,10 +84,8 @@ ORDER BY status_authorisation, created_at  ;");
         try{
             $visit = DB::table('visits')
                             ->join('users','visits.id_user','=','users.id')
-                            ->join('addresses','users.id_address','=','addresses.id')
-                            ->join('communities','addresses.id_communities','=','communities.id')
                             ->where('visits.name_visitor','LIKE',"%$visitorName%")
-                            ->select(['visits.id as visit_id','visits.id_user','visits.name_visitor','visits.visitor_type', 'visits.status_authorisation','users.name as name', 'visits.license_plate','addresses.name as address','communities.name as community','users.lot'])
+                            ->select(['visits.id as visit_id','visits.id_user','visits.name_visitor','visits.visitor_type', 'visits.status_authorisation','users.name as name', 'visits.license_plate'])
                             ->get();
 
             if($visit){

@@ -1,7 +1,7 @@
-< x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-bold text-xl text-yellow-400 leading-tight">
-            <center><b>{{ __('VISITOR MANAGEMENT DASHBOARD') }}</b></center>
+            <center><b>{{ __('VISITOR MANAGEMENT DASHBOARD  SECURITY VIEW') }}</b></center>
         </h2>
 
 
@@ -15,37 +15,43 @@
 
 
     <!--MAIN CONTAINER BACKGROUND BEGINS-->
-    <div class="justify-content-center bg-white row overflow-hidden py-4">
-
+    <div class=" justify-content-center bg-white row overflow-hidden py-4">
 
         <!--TRANSPARENT CONTAINER FOR INPUT FIELDS (LEFT & RIGHT COLUMNS) -->
         <div id="topleft" class="p-5 mx-4 col-md-6 bg-white opacity-90 overflow-hidden shadow sm:rounded-lg">
 
-            <form autocomplete="off" method="POST" action="{{ route('dashboard.store') }}">
+            <form autocomplete="off" name="submitInfo" id="submitInfo" actions="" onsubmit="FillInfo()" method="GET">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                     @csrf
 
-                    <label style="color:Black">VISITOR NAME:</label>
+                    <input onfocus="this.value=''" class="form-control" type="hidden" style="text-align:left;"
+                        name="id_user" id="id_user" placeholder="RESIDENT ID" value="">
+                    <label style="color:black">RESIDENT NAME:</label>
                     <p class="form-group col-md-6"><input onfocus="this.value=''" class="form-control" type="text"
-                            style="text-align:left;" name="name_visitor" id="name_visitor" placeholder="NAME OF VISITOR"
-                            value=""></p>
+                            style="text-align:left;" name="name_resident" id="name_resident"
+                            placeholder="NAME OF RESIDENT" value=""></p>
 
-                    <label style="color:Black">{{ __('MODE OF TRANSPORTATION :') }}</label>
+                    <!--LOT NUMBER-->
+                    <label style="color:black">LOT NUMBER:</label>
+                    <p class="form-group col-md-6"><input onfocus="this.value=''" class="form-control" type="text"
+                            style="text-align:left;" name="lot" id="lot" placeholder="NAME OF RESIDENT" value=""></p>
+                    <!-- COMMUNITY NAME -->
+
+                    <label style="color:black">{{ __('COMMUNITY NAME :') }}</label>
 
                     <p class="form-group col-md-6"><select class="form-control" type="text" style="text=align:center"
-                            id='visitor_type' name='visitor_type' onchange="{{ isset($Onchange) }}">
-                            <option id='defaultOption' value="">{{ __('SELECT MODE OF TRANSPORTATION') }}</option>
-                            @if (isset($visitorTypes))
-                                @foreach ($visitorTypes as $visitorType)
-                                    <option
-                                        {{ isset($selectedId) && $selectedId == $visitorType->id ? 'selected' : '' }}
-                                        value="{{ $visitorType->name ?? '' }}">{{ __($visitorType->name ?? '') }}
+                            id='community' name='community' onchange="{{ isset($Onchange) }}">
+                            <option id='defaultOption' value="">{{ __('SELECT COMMUNITY NAME') }}</option>
+                            @if (isset($communities))
+                                @foreach ($communities as $community)
+                                    <option value="{{ $community->name ?? '' }}">{{ __($community->name ?? '') }}
                                     </option>
                                 @endforeach
                             @endif
 
+
                         </select>
-                        @error('visitor_type')
+                        @error('community')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -53,14 +59,70 @@
                     </p>
 
 
-                    <label style="color:Black">{{ __('STATUS AUTHORISATION :') }}</label>
+
+                    <!-- STREET ADDRESS -->
+
+                    <label style="color:black">{{ __('STREET ADDRESS :') }}</label>
 
                     <p class="form-group col-md-6"><select class="form-control" type="text" style="text=align:center"
-                            id='status_authorisation' name='status_authorisation' onchange="{{ isset($Onchange) }}">
+                            id='address' name='address' onchange="{{ isset($Onchange) }}">
+                            <option id='defaultOption' value="">{{ __('SELECT STREET NAME') }}</option>
+                            @if (isset($addresses))
+                                @foreach ($addresses as $address)
+                                    <option value="{{ $address->name ?? '' }}">{{ __($address->name ?? '') }}
+                                    </option>
+                                @endforeach
+                            @endif
+
+
+                        </select>
+                        @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </p>
+
+
+                    <label style="color:black">VISITOR NAME:</label>
+                    <p class="form-group col-md-6"><input onfocus="this.value=''" class="form-control" type="text"
+                            style="text-align:left;" name="name_visitor" id="name_visitor" placeholder="NAME OF VISITOR"
+                            value=""></p>
+
+
+                    <label style="color:black">{{ __('VISITOR TYPE :') }}</label>
+
+                    <p class="form-group col-md-6"><select class="form-control" type="text" style="text=align:center"
+                            id='visitor_type' name='visitor_type' onchange="{{ isset($Onchange) }}">
+                            <option id='defaultOption' value="">{{ __('SELECT VISITOR TYPE') }}</option>
+                            @if (isset($visitorTypes))
+                                @foreach ($visitorTypes as $visitorType)
+                                    <option
+                                        {{ isset($selectedId) && $selectedId == $option->id ? 'selected' : '' }}
+                                        value="{{ $visitorType->name ?? '' }}">{{ __($visitorType->name ?? '') }}
+                                    </option>
+                                @endforeach
+                            @endif
+
+
+                        </select>
+                        @error('visitorType')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </p>
+
+                    <label style="color:black">{{ __('STATUS AUTHORISATION :') }}</label>
+
+                    <p class="form-group col-md-6"><select class="form-control" type="text" style="text=align:center"
+                            id='status_authorisation' name='status_authorisation'
+                            onchange="{{ isset($Onchange) }}">
                             <option id='defaultOption' value="">{{ __('SELECT AUTHORISATION STATUS') }}</option>
                             @if (isset($authorisationStatus))
                                 @foreach ($authorisationStatus as $authorisationStatus)
-                                    <option {{ isset($selectedId) && $selectedId == $option->id ? 'selected' : '' }}
+                                    <option
+                                        {{ isset($selectedId) && $selectedId == $option->id ? 'selected' : '' }}
                                         value="{{ $authorisationStatus->name ?? '' }}">
                                         {{ __($authorisationStatus->name ?? '') }}
                                     </option>
@@ -76,7 +138,7 @@
                     </p>
 
                     <!-- License Plate -->
-                    <label style="color:Black">LICENSE PLATE #</label>
+                    <label style="color:black">LICENSE PLATE #</label>
                     <p class="form-group col-md-6"><input onfocus="this.value=''" class="form-control" type="text"
                             style="text-align:left;" name="license_plate" id="license_plate"
                             placeholder="LICENSE PLATE NUMBER" value=""></p>
@@ -84,79 +146,60 @@
 
                     <BR>
 
-                    <center class="col-md-6"><button type="submit" class="btn btn-success">Submit</button> </center>
-                </div>
+                    <center class="col-md-6"><input type="button" onclick="SubmitInfo();return true"
+                            class="btn btn-success" value="SUBMIT" />
+                    <input type="submit" onclick="FillInfo();return true"
+                            class="btn btn-warning" value="SEARCH" /></center>
 
             </form>
 
 
+
+
+
         </div>
 
-        <!-- TABLE BEGINS-->
-        <div id="table" >
-            <div id="visitList">
-                <table class="border-separate table table-striped yajra-datatable" value="testme" type="button"
-                    onclick="test()">
-                    <thead>
+        <div class="col-md-6"> </div>
+
+
+    </div>
+
+    </div>
+    <!-- TABLE BEGINS-->
+    <div id="table" class="p-1 mx-1 bg-white row  overflow-hidden shadow sm:rounded-lg">
+        <div id="residentList">
+            <table class="border-separate table table-striped yajra-datatable" value="testme" type="button"
+                onclick="test()">
+
+                <thead>
+                    <tr>
+                        <th>
+                            <center>Resident ID</center>
+                        </th>
+                        <th>
+                            <center>Resident NAME</center>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($residents as $resident)
                         <tr>
-                            <th>
-                                <center>VISITOR NAME</center>
-                            </th>
-                            <th>
-                                <center>VISITOR TYPE</center>
-                            </th>
-                            <th>
-                                <center>ENTRY STATUS</center>
-                            </th>
-                            <th>
-                                <center>LICENSE </center>
-                            </th>
-                            <th>
-                                <center>CREATED BY</center>
-                            </th>
-                            <th>
-                                <centeR>CREATED DATE</center>
-                            </th>
-                            <th>
-                                <center>ACTION</center>
-                            </th>
+
+
+                            <td>{{ $resident->id }}</td>
+                            <td>{{ $resident->name }}</td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($visits as $visit)
-                        <tr>
-                           
-                                <td>{{ $visit->name }}</td>
-                                <td>{{ $visit->visitor_type }}</td>
-                                <td>{{ $visit->status_authorisation }}</td>
-                                <td>{{ $visit->license_plate }}</td>
-                                <td>{{ $visit->user_name }}</td>
-                                <td>{{ $visit->created_at }}</td>
-                                <td> <a
-                                        href="{{ route('dashboard.edit', [
-                                            'id' => $visit->id,
-                                            'visitorname' => $visit->name,
-                                            'visitorType' => $visit->visitor_type,
-                                            'authorisationStatus' => $visit->status_authorisation,
-                                            'licensePlate' => $visit->license_plate,
-                                        ]) }}">
-                                        <button role="button" class="btn btn-warning">Edit</button>
-
-
-                                    <form action="{{ route('dashboard.destroy', ['id' => $visit->id]) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('Delete')
-                                        <button role="button" class="btn btn-danger">Delete</button>
-                                    </form>
-
-                                </td>
-                        </tr> 
-                        @endforeach      
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+
+
+        // SEARCH DATABASE
+
+
+
     </div>
     <!--MAIN CONTAINER BACKGROUND ENDS-->
 
@@ -166,7 +209,7 @@
 
     <script>
         function test() {
-            var table = document.getElementById("visitList");
+            var table = document.getElementById("residentList");
             var thead = document.getElementsByTagName("thead")[0];
             var tbody = table.getElementsByTagName("tbody")[0];
             var ishigh;
@@ -235,10 +278,13 @@
 
 
             function populateFields(row) {
-                el('name_visitor').value = row.cells[0].innerHTML;
-                el('visitor_type').value = row.cells[1].innerHTML
-                el('status_authorisation').value = row.cells[2].innerHTML
-                el('license_plate').value = row.cells[3].innerHTML
+                el('id_user').value = row.cells[0].innerHTML;
+                el('name_resident').value = row.cells[1].innerHTML;
+                el('lot').value = row.cells[2].innerHTML
+                el('address').value = row.cells[3].innerHTML
+                el('community').value = row.cells[4].innerHTML
+
+
 
 
 
@@ -282,7 +328,17 @@
 
 
         }
+
+        function FillInfo() {
+            document.forms['submitInfo'].action = "{{ route('residentEntry') }}";
+            document.forms['submitInfo'].submit();
+        }
+
+        function SubmitInfo() {
+            document.forms['submitInfo'].action = "{{ route('dashboard/store') }}";
+            document.forms['submitInfo'].submit();
+        }
     </script>
 
 
-    </x-app-layout>
+</x-app-layout>

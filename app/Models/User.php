@@ -51,6 +51,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function getAllResidents(){
+        try{
+            $resident = DB::table('users')
+                            ->join('role_user','users.id','=','user_id')
+                            ->join('roles','role_user.role_id','=','roles.id')
+                            ->where('roles.name','=','RESIDENT')
+                            ->select(['users.id','users.name','roles.name as role_name'])
+                            ->get();
+
+            if($resident){
+                return $resident;
+            }
+        }catch(Exception $error){
+            Log::error("Error trying to get resident by name" . $error->getMessage());
+
+        }
+
+        return [];
+    }
+
+
     public static function getResidentId($id){
 
         $resident = new Collection();
@@ -74,10 +95,11 @@ class User extends Authenticatable
     public static function getResident($userName){
         try{
             $resident = DB::table('users')
-                            ->join('addresses','users.id_address','=','addresses.id')
-                            ->join('communities','addresses.id_communities','=','communities.id')
+                            ->join('role_user','users.id','=','user_id')
+                            ->join('roles','role_user.role_id','=','roles.id')
                             ->where('users.name','LIKE',"%$userName%")
-                            ->select(['users.id','users.name','users.lot','users.id_address','addresses.name as address','communities.id as community_id','communities.name as community_name'])
+                            ->where('roles.name','=','RESIDENT')
+                            ->select(['users.id','users.name','roles.name as role_name'])
                             ->get();
 
             if($resident){

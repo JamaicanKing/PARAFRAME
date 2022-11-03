@@ -61,7 +61,8 @@ class DashboardController extends Controller
                 'communities' => $communities,
             ])->with('status','THIS IS A RESIDENT');
         } elseif (Auth::user()->hasRole('ADMINISTRATOR')) {
-            return view('dashboard');
+            $role = Auth::user()->getRoles()[0];
+            return view('dashboard',['role' => $role]);
         }
     }
 

@@ -1,0 +1,98 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700';
+
+.container {
+    margin: 0 auto;
+    max-width: 980px;
+  }
+  .panel {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    height: 160px;
+    margin: 10px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .panel a {
+    position: relative;
+    display: block;
+    padding: 12px 25px 25px 25px;
+    color: #fff;
+    text-decoration: none;
+    z-index: 2;
+  }
+  .panel a span {
+    display: inline;
+    font-size: 50px;
+    font-weight: 200;
+    line-height: 20px;
+  }
+  .panel:after {
+    position: absolute;
+    font-family: FontAwesome;
+    color: #000000;
+    z-index: 1;
+    transition: all 0.5s;
+    line-height: normal;
+  }
+  .panel.visitor {
+    background-color: #b8aa0e;
+  }
+  .panel.visitor:after {
+    content: "\f023";
+    font-size: 200px;
+    color: #a5980d;
+    top: 45px;
+    right: 60px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .panel.visitor:hover:after {
+    top: 8px;
+  }
+  .panel.resident {
+    background-color: #0377c0;
+  }
+  .panel.resident:after {
+    content: "\f015";
+    font-size: 180px;
+    color: #036bac;
+    top: 30px;
+    right: 35px;
+  }
+  .panel.resident:hover:after {
+    top: -5px;
+  }
+  .panel.exit {
+    background-color: #279824;
+  }
+  .panel.exit:after {
+    content: "\f15c";
+    font-size: 160px;
+    color: #238820;
+    top: 62px;
+    right: 39px;
+  }
+  .panel.exit:hover:after {
+    top: 24px;
+  }
+  .panel.user {
+    background-color: #fc1c3e;
+  }
+  .panel.user:after {
+    content: "\f007";
+    font-size: 200px;
+    color: #ec0326;
+    top: 45px;
+    right: 35px;
+  }
+  .panel.user:hover:after {
+    top: 7px;
+  }
+  .panel:hover:after {
+    transition: all 0.5s;
+  }

@@ -23,6 +23,7 @@ class ResidentDetailController extends Controller
      */
     public function index()
     {
+        dd(Auth::user()->hasRole('SECURITY'));
         $residentDetails = [];
         $id = Auth::user()->id;
         if(Auth::user()->hasRole('RESIDENT')){

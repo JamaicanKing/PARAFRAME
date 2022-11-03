@@ -37,25 +37,42 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/securityDashboard.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profilePage.css') }}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        
         <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/demos/style.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='https://unicons.iconscout.com/release/v3.0.6/css/line.css'>
+        <link rel='stylesheet' href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
         <!-- Scripts -->
+        <!--<script src="{{ asset('js/dashboard.js') }}" defer></script>-->
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
+        
+       
+       
+
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        
+        <section id="wrapper">
+            @include('layouts.sideNav')
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class="bg-black shadow">
+           <!--<header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+                     $header 
                 </div>
-            </header>
+            </header>-->
+
+             <!-- SideNav -->
+           
 
             <!-- Page Content -->
            
@@ -63,6 +80,6 @@
                 {{ $slot }}
                 </main>
            
-        </div>
+        </section>
     </body>
 </html>

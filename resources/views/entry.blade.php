@@ -1,8 +1,3 @@
-<?php
-if(isset($visits)){
-    print_r($visits);
-}
-?>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-bold text-xl text-yellow-400 leading-tight">
@@ -161,32 +156,19 @@ if(isset($visits)){
                             <center>RESIDENT NAME </center>
                         </th>
                         <th>
-                            <center>COMMUNITY</center>
-                        </th>
-                        <th>
-                            <center>LOT NUMBER </center>
-                        </th>
-                        <th>
-                            <center>STREET NAME </center>
-                        </th>
                         
                     </tr>
                 </thead>
                 <tbody>
                 <@foreach($visits as $visit)
                     <tr>
-                        
-                        
+
                         <td>{{ $visit->visit_id }}</td>
                         <td>{{ $visit->name_visitor }}</td>
                         <td>{{ $visit->status_authorisation }}</td>
                         <td>{{ $visit->visitor_type }}</td>
                         <td>{{ $visit->license_plate }}</td>
                         <td>{{ $visit->name }}</td>
-                        <td>{{ $visit->community }}</td>
-                        <td>{{ $visit->lot }}</td>
-                        <td>{{ $visit->address }}</td>
-
                     </tr>
         @endforeach
         </tbody>

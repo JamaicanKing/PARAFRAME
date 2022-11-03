@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    <div class="bg-black py-7">
+    <div class="bg-white py-7">
         <div class="bg-white overflow-hidden shadow-sm m:rounded-lg max-w-6xl mx-auto sm:px-6 lg:px-0">
             <div class="bg-gray border-b border-gray-200 padding:0.5rem">
                 <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">

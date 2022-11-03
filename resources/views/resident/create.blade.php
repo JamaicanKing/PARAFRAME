@@ -1,85 +1,117 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-bold text-xl text-red-800 leading-tight">
-            <b>{{ __('Test DASHBOARD') }}
-        </h2>
-    </x-slot>
 
-    <div class="bg-black py-7">
-        <div class="bg-white overflow-hidden shadow-sm m:rounded-lg max-w-6xl mx-auto sm:px-6 lg:px-0">
-            <div class="p-10 bg-gray border-b border-gray-200">
-                <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                    <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
+    @if (session('status'))
+        <div class="alert alert-danger">
+            {!! session('status') !!}
+        </div>
+    @endif
 
-                    <div class="mt-2 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                        <div class="grid grid-cols-1 md:grid-cols-2">
-                            <div class="p-3">
-                                <div class="flex items-center">
-                                    <img fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500" src="{{asset('assets/images/security guard.jpg')}}"></img>
-                                    <div class="ml-4 text-lg leading-7 font-bold">REGISTER NEW VISITOR</div>
-                                </div>
-
-                                <form method="POST" action="{{ route('resident.store') }}" >
-                                @csrf
-
-                                <div class="ml-12">
-                                    <div class="mt-4 text-gray-600 dark:text-gray-600 text-sm">
-
-                                        <!-- Validation Errors -->
-                                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-                                        <!-- Name --><br>
-                                        <x-label for="name_visitor name" :value="__('NAME')" />
-                                        <x-input id="name_visitor" class="block mt-1 w-full" type="text" name="name_visitor" :value="old('name_visitor')" required autofocus />
-
-                                        <!-- Select Visitor Mode OF Transportation --><br>
-
-                                        <x-label for="visitor_type" value="{{ __('MODE OF TRANSPORTATION') }}" />
-                                        <select name="visitor_type" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                                            <option value="PEDESTRIAN">PEDESTRIAN</option>
-                                            <option value="DRIVER">DRIVER</option>
-                                            <option value="PASSENGER">PASSENGER</option>
-                                        </select>
+    <!-- Page content -->
 
 
-                                        <!-- Select Visitor Audhotisation Status --><br>
-                                        <x-label for="status_authorisation" value="{{ __('AUTHORISATION STATUS') }}" />
-                                        <select name="status_authorisation" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                                            <option value="SINGLE ENTRY">SINGLE ENTRY</option>
-                                            <option value="MULTIPLE ENTRY - (WHITELIST)">MULTIPLE ENTRY - (WHITELIST)</option>
-                                            <option value="DENY ENTRY - (BLACKLIST)">DENY ENTRY - (BLACKLIST)</option>
-                                        </select>
+    <form method="POST" action="" enctype="multipart/form-data">
 
-                                        <!-- License Plate --><br>
-                                        <x-label for="license_plate" :value="__('LICENSE PLATE #')" />
-                                        <x-input id="license_plate" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-
-                                        <BR>
-
-                                        <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Submit
-                                        </button>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-
-                                <div class="ml-12">
-                                    <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-
-
-                                        <!-- 2nd Column -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+        <div>
+            <h3>Filled In Resident Detail</h3>
+        </div>
+        <h6 class="heading-small text-muted mb-4">User information</h6>
+        <div class="pl-lg-4">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">Name</label>
+                        <input type="text" id="input-full-name"
+                            class="form-control form-control-alternative" placeholder="Full name" value="">
                     </div>
                 </div>
-                </form>
+                <div class="col-lg-6">
+                    <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">Email</label>
+                        <input type="Email" id="email" name="email"
+                            class="form-control form-control-alternative" placeholder="" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+        <!-- Address -->
+        <h6 class="heading-small text-muted mb-4">Contact information</h6>
+        <div class="pl-lg-4">
+
+            <div class="row">
+                @include('components.common.dropDown',
+                        [
+                            'fieldLabel' => 'Communities :',
+                            'fieldName' => 'id_communities',
+                            'defaultDropDownOption' => 'Please Select Community',
+                            'options' => $communities,
+                        ])
+
+                @include('components.common.dropDown',
+                [
+                    'fieldLabel' => 'Address :',
+                    'fieldName' => 'address_id',
+                    'defaultDropDownOption' => 'Please Select Address',
+                    'options' => [],
+                ])
+
+
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <label class="form-control-label" for="input-country">Lot</label>
+                        <input type="text" id="input-country" class="form-control form-control-alternative"
+                            placeholder="Lot" value="">
+                    </div>
+                </div>
+
+            </div>
+
+                <div class="mt-4">
+                    <x-label for="pin" :value="__('Enter PIN ')" />
+
+                    <x-input id="pin" class="block mt-1 w-full" type="password" name="pin" maxlength="4"
+                        required autocomplete="new-password" />
+                </div>
+
+
+                <button type="submit" class="m-20 btn btn-primary">Submit</button>
+
+    </form>
+
+    <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="copyright">
+                    <p>Made By GLC Dashboard </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('id_communities').addEventListener('change',async function(){
+            const community_id = document.getElementById('id_communities').value;
+            const response = await fetch('http://127.0.0.1:8000/api/api/v1/addresses/'+community_id+'');
+            const myJson = await response.json();
+            console.log(myJson);
+
+            myJson.forEach(element => {
+                console.log(element.name);
+            });
+
+                
+        })
+        
+    </script>
+
 </x-app-layout>
