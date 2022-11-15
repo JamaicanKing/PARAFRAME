@@ -19,17 +19,11 @@ class ResidentDetail extends Model
      * @var string[]
      */
     protected $fillable = [
-        'usersResident_id',
+        'user_id',
         'pin',
-            'security_question_1',
-            'security_answer_1',
-            'security_question_2',
-            'security_answer_2',
-            'security_question_3',
-            'security_answer_3',
-            'vehicle_model',
-            'vehicle_color',
-            'license_plate',
+        'address_id',
+        'lot_number'
+
     ];
 
     /**

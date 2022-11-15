@@ -83,7 +83,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/resident/Entry', 'App\Http\Controllers\SecurityDashboardController@residentEntry')->name('residentEntry');
 
         Route::resource('address', App\Http\Controllers\addressController::class);
-        Route::resource('resident', App\Http\Controllers\ResidentController::class);
         Route::resource('visitorType', App\Http\Controllers\VisitorTypeController::class);
         Route::resource('community', App\Http\Controllers\CommunityController::class);
         Route::resource('authorisationStatus', App\Http\Controllers\AuthorisationController::class);

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Addresses;
+use App\Models\Streets;
 use App\Models\Communities;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Models\ResidentDetail;
+use Illuminate\Auth\Events\Registered;
+use Exception;
 class ResidentController extends Controller
 {
     /**
@@ -39,7 +45,30 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'pin' => 'numeric|required|confirmed'
+        ]);
+        
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('password'),
+        ]);
+
+        $user->attachRole(3);
+        event(new Registered($user));
+
+        $residentDetails = ResidentDetail::create([
+            'user_id' => $user->id,
+            'address_id' => $request->address_id,
+            'lot_number' => $request->lot_number,
+            'pin' => $request->pin
+
+        ]);
+        
+      //dd(file_get_contents($request->file('file')->path()));
+      return redirect()->route('dashboard')->with('status','RESIDENT ADDED SUCCESSFULLY');
     }
 
     /**

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use App\Models\Addresses;
+use App\Models\Streets;
 use App\Models\Communities;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        $addresses = Addresses::all(['id','name']);
+        $addresses = Streets::all(['id','name']);
         $communities = Communities::all();
         
         

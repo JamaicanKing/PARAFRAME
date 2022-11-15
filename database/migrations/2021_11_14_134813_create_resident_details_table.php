@@ -15,19 +15,27 @@ class CreateResidentDetailsTable extends Migration
     {
         Schema::create('resident_details', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('usersResident_id')->unsigned()->unique();
-            $table->string('pin');
-            $table->string('security_question_1');
-            $table->string('security_answer_1');
-            $table->string('security_question_2');
-            $table->string('security_answer_2');
-            $table->string('security_question_3');
-            $table->string('security_answer_3');
+            $table->bigInteger('user_id')->unsigned()->unique();
+            $table->bigInteger('address_id')->unsigned();
+            $table->integer('lot_number');
+            $table->integer('pin')->nullable();
+            $table->string('security_question_1')->nullable();
+            $table->string('security_answer_1')->nullable();
+            $table->string('security_question_2')->nullable();
+            $table->string('security_answer_2')->nullable();
+            $table->string('security_question_3')->nullable();
+            $table->string('security_answer_3')->nullable();
             $table->timestamps();
 
-            $table->foreign('usersResident_id')
+            $table->foreign('user_id')
             ->references('id') 
             ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->foreign('address_id')
+            ->references('id') 
+            ->on('addresses')
             ->onUpdate('cascade')
             ->onDelete('cascade');
         });

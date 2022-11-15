@@ -50,7 +50,7 @@
         <link rel='stylesheet' href='https://unicons.iconscout.com/release/v3.0.6/css/line.css'>
         <link rel='stylesheet' href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
         <!-- Scripts -->
-        <!--<script src="{{ asset('js/dashboard.js') }}" defer></script>-->
+        <script src="{{ asset('js/dashboard.js') }}" defer></script>
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
         

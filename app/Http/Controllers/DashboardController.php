@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\VisitorType;
 use App\Models\AuthorisationStatus;
 use App\Models\Visits;
-use App\Models\Addresses;
 use App\Models\Communities;
+use App\Models\Streets;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $visits = Visits::getResidentCurrentDayVisits($id);
         $visitorTypes = VisitorType::all(['id', 'name']);
         $communities = Communities::all(['id', 'name']);
-        $addresses = Addresses::all(['id', 'name']);
+        $addresses = Streets::all(['id', 'name']);
         $authorisationStatuses = AuthorisationStatus::all(['id', 'name']);
 
 

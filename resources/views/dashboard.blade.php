@@ -1,5 +1,11 @@
 <x-app-layout>
 
+    @if (session('status'))
+<div class="alert alert-success">
+    {!! session('status') !!}
+</div>
+@endif
+
   <div class="p-4">
     <div class="welcome">
       <div class="content rounded-3 p-3">
