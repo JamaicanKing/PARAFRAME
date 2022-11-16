@@ -9,7 +9,6 @@ Paraframe is a security adinistrative tool for small enclosed areas example:- ga
 * Residents are able to blacklist,whitelist and schedule single visits for visitors.
 * Shortend interaction with security guards, residents  and visitors.
 * Administrators can keep track of security guards login and logout times.
-* 
 
 ## How To Install
 
@@ -21,7 +20,7 @@ Paraframe is a security adinistrative tool for small enclosed areas example:- ga
 ```bash
     $ composer install
 ```
-3. copy .env.example and change name to .env then update with database information.
+3. copy .env.example and change name to .env then update with database login information.
 4. run migrations
 ```bash
     php artisan migrate
